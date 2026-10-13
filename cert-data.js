@@ -1,17 +1,17 @@
 
 window.CERT_DATA = {
-  "CT001": {
-    model: "EIG-2026-0891",
+  "CB4360250": {
+    model: "CX Series",
     status: "Passed",
-    calibrationDate: "06-August-2026",
-    validUntil: "05-August-2027"
+    calibrationDate: "02-July-2026",
+    validUntil: "02-July-2027"
   },
 
-  "CT002": {
-    model: "EIG-2026-0892",
+  "2024085": {
+    model: "TY2625E",
     status: "Passed",
-    calibrationDate: "10-August-2026",
-    validUntil: "09-August-2027"
+    calibrationDate: "02-July-2026",
+    validUntil: "02-july-2027"
   },
 
   "PT001": {
