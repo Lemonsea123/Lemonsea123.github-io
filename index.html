@@ -1,87 +1,248 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Equipment Calibration Info</title>
-<style>
-  body {
-    font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 24px 16px;
-    background: #f7f8fa;
-    color: #333;
-  }
-  .card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 28px 24px;
-    box-shadow: 0 2px 14px rgba(0,0,0,0.08);
-  }
-  h1 {
-    font-size: 20px;
-    margin: 0 0 24px;
-    text-align: center;
-    color: #1d2129;
-  }
-  .row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid #f0f1f3;
-    font-size: 15px;
-  }
-  .row:last-child {
-    border-bottom: none;
-  }
-  .label {
-    color: #86909c;
-  }
-  .value {
-    font-weight: 600;
-    color: #1d2129;
-  }
-  .status-valid {
-    color: #00b42a;
-  }
-  .status-expired {
-    color: #f53f3f;
-  }
-  .footer {
-    margin-top: 24px;
-    text-align: center;
-    font-size: 12px;
-    color: #c9cdd4;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10243a">
+  <title>Electrical Document Center</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+      background: #f3f6fa;
+      color: #172b42;
+    }
+
+    header {
+      background: #10243a;
+      color: white;
+      padding: 24px 20px;
+    }
+
+    .header-inner, main, footer {
+      max-width: 960px;
+      margin: auto;
+    }
+
+    .brand {
+      font-size: 13px;
+      color: #9db5cd;
+      letter-spacing: 2px;
+    }
+
+    h1 { margin: 12px 0 8px; font-size: 28px; }
+    header p { color: #c5d3e1; margin: 0; line-height: 1.7; }
+
+    main { padding: 28px 18px; }
+
+    .status {
+      display: inline-block;
+      background: #e0f4e9;
+      color: #167548;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e0e7ef;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: 0 5px 18px #19365408;
+    }
+
+    h2 { font-size: 19px; margin: 0 0 12px; }
+    .muted { color: #718197; font-size: 14px; line-height: 1.8; }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 18px 0 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccd6e2;
+      border-radius: 8px;
+      font-size: 15px;
+      outline-color: #2876c7;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin: 14px 8px 0 0;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .primary { background: #1769aa; color: white; }
+    .secondary { background: #eaf0f6; color: #203c57; }
+
+    #qr {
+      display: none;
+      width: fit-content;
+      margin: 22px auto 8px;
+      padding: 16px;
+      border: 1px solid #e1e7ef;
+      border-radius: 10px;
+    }
+
+    #qr img, #qr canvas { display: block; max-width: 100%; }
+
+    #message { font-size: 14px; line-height: 1.7; }
+
+    .notice {
+      background: #fff8e8;
+      border: 1px solid #f0dfb7;
+      border-radius: 10px;
+      padding: 14px;
+      color: #77551c;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    footer {
+      padding: 12px 18px 32px;
+      color: #8190a2;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 23px; }
+      .card { padding: 18px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Equipment Calibration Info</h1>
-
-    <div class="row">
-      <span class="label">Model</span>
-      <span class="value">XXX-2000</span>
+  <header>
+    <div class="header-inner">
+      <div class="brand">ELECTRICAL ENGINEERING</div>
+      <h1>电气调试技术文件中心</h1>
+      <p>Electrical Commissioning Document Center</p>
     </div>
+  </header>
 
-    <div class="row">
-      <span class="label">Calibration Status</span>
-      <span class="value status-valid">Passed</span>
-    </div>
+  <main>
+    <div class="status">● 网站首页已加载</div>
 
-    <div class="row">
-      <span class="label">Calibration Date</span>
-      <span class="value">2026-10-13</span>
-    </div>
+    <section class="card">
+      <h2>二维码生成工具</h2>
+      <p class="muted">
+        输入已经可以公开访问的网址，生成对应二维码。
+        扫码后会打开该网址。
+      </p>
 
-    <div class="row">
-      <span class="label">Valid Until</span>
-      <span class="value">2027-10-12</span>
-    </div>
-  </div>
+      <label for="url">PDF 或网页的完整网址</label>
+      <input
+        id="url"
+        type="url"
+        placeholder="https://example.com/report.pdf"
+        autocomplete="url"
+      >
 
-  <div class="footer">Last updated: 2026-10-13</div>
+      <button class="primary" id="generate">生成二维码</button>
+      <button class="secondary" id="download" disabled>下载二维码 PNG</button>
+
+      <div id="qr"></div>
+      <p id="message" class="muted" aria-live="polite"></p>
+    </section>
+
+    <section class="card">
+      <h2>平台建设计划</h2>
+      <p class="muted">
+        后续将逐步增加设备编号管理、PDF 上传、固定访问链接、
+        批量生成二维码和 Excel 清单导入功能。
+      </p>
+      <div class="notice">
+        当前版本只负责生成网址二维码，不提供 PDF 上传和存储。
+        输入的链接必须已经可以通过互联网访问。
+        请勿上传或公开包含保密工程信息的文件。
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Electrical Document Center · Initial Version
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const urlInput = document.getElementById("url");
+    const qrBox = document.getElementById("qr");
+    const message = document.getElementById("message");
+    const downloadButton = document.getElementById("download");
+    let qrCode = null;
+
+    document.getElementById("generate").addEventListener("click", () => {
+      const value = urlInput.value.trim();
+
+      if (!value) {
+        message.textContent = "请先输入完整的网址。";
+        return;
+      }
+
+      let parsed;
+      try {
+        parsed = new URL(value);
+      } catch {
+        message.textContent = "网址格式不正确，请检查后重试。";
+        return;
+      }
+
+      if (!["https:", "http:"].includes(parsed.protocol)) {
+        message.textContent = "请输入以 http:// 或 https:// 开头的网址。";
+        return;
+      }
+
+      if (typeof QRCode === "undefined") {
+        message.textContent =
+          "二维码组件加载失败，请检查网络连接后刷新页面。";
+        return;
+      }
+
+      qrBox.innerHTML = "";
+      qrBox.style.display = "block";
+
+      qrCode = new QRCode(qrBox, {
+        text: value,
+        width: 240,
+        height: 240,
+        colorDark: "#10243a",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      message.textContent =
+        "二维码已生成。请用手机扫描验证，再下载并打印。";
+      downloadButton.disabled = false;
+    });
+
+    downloadButton.addEventListener("click", () => {
+      const image = qrBox.querySelector("img");
+      const canvas = qrBox.querySelector("canvas");
+      const dataUrl = image?.src || canvas?.toDataURL("image/png");
+
+      if (!dataUrl) {
+        message.textContent = "请先生成二维码。";
+        return;
+      }
+
+      const link = document.createElement("a");
+      link.href = dataUrl;
+      link.download = "electrical-document-qr.png";
+      link.click();
+    });
+  </script>
 </body>
 </html>
