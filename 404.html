@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipment Calibration Info</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f7f8fa;
+    color: #333;
+  }
+
+  #message {
+    max-width: 480px;
+    margin: 60px auto;
+    padding: 24px;
+    text-align: center;
+  }
+
+  #certificateFrame {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    min-height: 520px;
+    border: 0;
+    background: #f7f8fa;
+  }
+</style>
+</head>
+<body>
+
+<div id="message">
+  <h2>Equipment Calibration Info</h2>
+  <p id="messageText">Loading...</p>
+</div>
+
+<iframe
+  id="certificateFrame"
+  title="Equipment Calibration Information"
+></iframe>
+
+<script>
+(function () {
+  const pathname = window.location.pathname;
+  const segments = pathname.split("/").filter(Boolean);
+
+  // Find the cert path segment, supporting both:
+  // /cert/CT001
+  // /Lemonsea123.github-io/cert/CT001
+  const certIndex = segments.lastIndexOf("cert");
+
+  const message = document.getElementById("message");
+  const messageText = document.getElementById("messageText");
+  const frame = document.getElementById("certificateFrame");
+
+  if (
+    certIndex === -1 ||
+    certIndex !== segments.length - 2
+  ) {
+    messageText.textContent =
+      "Page not found. Please check the certificate URL.";
+    return;
+  }
+
+  let equipmentId;
+
+  try {
+    equipmentId = decodeURIComponent(
+      segments[certIndex + 1]
+    ).trim().toUpperCase();
+  } catch (error) {
+    messageText.textContent = "Invalid certificate URL.";
+    return;
+  }
+
+  if (!/^[A-Z0-9_-]+$/.test(equipmentId)) {
+    messageText.textContent = "Invalid equipment ID.";
+    return;
+  }
+
+  // Preserve the GitHub repository prefix when present.
+  const prefixSegments = segments.slice(0, certIndex);
+  const basePath =
+    "/" + (prefixSegments.length
+      ? prefixSegments.join("/") + "/"
+      : "");
+
+  const templateUrl =
+    basePath +
+    "cert-template.html?id=" +
+    encodeURIComponent(equipmentId);
+
+  frame.src = templateUrl;
+  frame.style.display = "block";
+  message.style.display = "none";
+})();
+</script>
+
+</body>
+</html>
