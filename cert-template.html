@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Equipment Calibration Info</title>
+<style>
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 24px 16px;
+    background: #f7f8fa;
+    color: #333;
+  }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px 24px;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.08);
+  }
+  .logo {
+    display: block;
+    margin: 0 auto 16px;
+    max-width: 160px;
+    height: auto;
+  }
+  h1 {
+    font-size: 20px;
+    margin: 0 0 24px;
+    text-align: center;
+    color: #1d2129;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f1f3;
+    font-size: 15px;
+  }
+  .row:last-child {
+    border-bottom: none;
+  }
+  .label {
+    color: #86909c;
+    flex-shrink: 0;
+  }
+  .value {
+    font-weight: 600;
+    color: #1d2129;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+  .status-valid {
+    color: #00b42a;
+  }
+  .status-expired {
+    color: #f53f3f;
+  }
+  .status-unknown {
+    color: #86909c;
+  }
+  .footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: #c9cdd4;
+  }
+  .error {
+    color: #f53f3f;
+    text-align: center;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="logo" id="equipmentLogo">
+    <h1>Equipment Calibration Info</h1>
+
+    <div id="certificateInfo">
+      <p>Loading equipment information...</p>
+    </div>
+  </div>
+
+  <script src="./cert-data.js"></script>
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const equipmentId = (params.get("id") || "").trim().toUpperCase();
+      const container = document.getElementById("certificateInfo");
+
+      function showError(message) {
+        container.innerHTML = "";
+        const p = document.createElement("p");
+        p.className = "error";
+        p.textContent = message;
+        container.appendChild(p);
+      }
+
+      if (!equipmentId || !/^[A-Z0-9_-]+$/.test(equipmentId)) {
+        showError("Invalid equipment ID.");
+        return;
+      }
+
+      const allData = window.CERT_DATA || {};
+      const equipment = allData[equipmentId];
+
+      if (!equipment) {
+        showError("No calibration information found for this equipment.");
+        return;
+      }
+
+      document.title = "Calibration Info - " + equipmentId;
+
+      function addRow(label, value, className) {
+        const row = document.createElement("div");
+        row.className = "row";
+
+        const labelElement = document.createElement("span");
+        labelElement.className = "label";
+        labelElement.textContent = label;
+
+        const valueElement = document.createElement("span");
+        valueElement.className = "value";
+        valueElement.textContent = value || "Not provided";
+
+        if (className) {
+          valueElement.classList.add(className);
+        }
+
+        row.appendChild(labelElement);
+        row.appendChild(valueElement);
+        container.appendChild(row);
+      }
+
+      let statusClass = "status-unknown";
+      const status = String(equipment.status || "").trim().toLowerCase();
+
+      if (status === "passed" || status === "valid") {
+        statusClass = "status-valid";
+      } else if (status === "expired" || status === "failed") {
+        statusClass = "status-expired";
+      }
+
+      addRow("Model", equipment.model, "");
+      addRow("Calibration Status", equipment.status, statusClass);
+      addRow("Calibration Date", equipment.calibrationDate, "");
+      addRow("Valid Until", equipment.validUntil, "");
+    })();
+  </script>
+</body>
+</html>
