@@ -518,6 +518,13 @@ window.CERT_DATA = {
     validUntil: "03-September-2027"
   },
 
+  "225022601278": {
+    model: "Class 0",
+    status: "Passed",
+    calibrationDate: "04-September-2026",
+    validUntil: "03-September-2027"
+  },
+  
   "225022803344": {
     model: "Class 2",
     status: "Passed",
